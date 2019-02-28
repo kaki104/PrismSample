@@ -10,6 +10,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "History", "History", "{46685CB8-F789-40E8-9D0B-680D716A82E4}"
 	ProjectSection(SolutionItems) = preProject
 		PrismSample_part1.zip = PrismSample_part1.zip
+		PrismSample_part2.zip = PrismSample_part2.zip
 	EndProjectSection
 EndProject
 Global
@@ -25,6 +26,8 @@ Global
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{4027C4E6-8606-440B-BA09-F9BF5623D438}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{4027C4E6-8606-440B-BA09-F9BF5623D438}.Debug|Any CPU.Build.0 = Debug|x86
+		{4027C4E6-8606-440B-BA09-F9BF5623D438}.Debug|Any CPU.Deploy.0 = Debug|x86
 		{4027C4E6-8606-440B-BA09-F9BF5623D438}.Debug|ARM.ActiveCfg = Debug|ARM
 		{4027C4E6-8606-440B-BA09-F9BF5623D438}.Debug|ARM.Build.0 = Debug|ARM
 		{4027C4E6-8606-440B-BA09-F9BF5623D438}.Debug|ARM.Deploy.0 = Debug|ARM

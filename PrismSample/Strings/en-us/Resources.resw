@@ -174,4 +174,8 @@
     <value>WebView</value>
     <comment>Navigation view item name for WebView</comment>
   </data>
+  <data name="Shell_Sample.Content" xml:space="preserve">
+    <value>Sample</value>
+    <comment>Navigation view item name for Sample</comment>
+  </data>
 </root>
