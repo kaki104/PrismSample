@@ -1,19 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Windows.Input;
-
-using Prism.Commands;
 using Prism.Windows.Mvvm;
 using Prism.Windows.Navigation;
-
 using PrismSample.Core.Models;
 using PrismSample.Core.Services;
-
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
 
 namespace PrismSample.ViewModels
 {
@@ -22,13 +14,14 @@ namespace PrismSample.ViewModels
         private readonly INavigationService _navigationService;
         private readonly ISampleDataService _sampleDataService;
 
-        public MasterDetailViewModel(INavigationService navigationServiceInstance, ISampleDataService sampleDataServiceInstance)
+        private SampleOrder _selected;
+
+        public MasterDetailViewModel(INavigationService navigationServiceInstance,
+            ISampleDataService sampleDataServiceInstance)
         {
             _navigationService = navigationServiceInstance;
             _sampleDataService = sampleDataServiceInstance;
         }
-
-        private SampleOrder _selected;
 
         public SampleOrder Selected
         {
@@ -47,13 +40,9 @@ namespace PrismSample.ViewModels
         public async Task LoadDataAsync()
         {
             SampleItems.Clear();
-
             var data = await _sampleDataService.GetSampleModelDataAsync();
 
-            foreach (var item in data)
-            {
-                SampleItems.Add(item);
-            }
+            foreach (var item in data) SampleItems.Add(item);
         }
 
         public void SetDefaultSelection()

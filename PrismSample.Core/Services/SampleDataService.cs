@@ -127,5 +127,11 @@ namespace PrismSample.Core.Services
         {
             return await Task.FromResult<IEnumerable<SampleOrder>>(AllOrders());
         }
+
+        // TODO WTS: Remove this once your grid page is displaying real data
+        public ObservableCollection<SampleOrder> GetGridSampleData()
+        {
+            return new ObservableCollection<SampleOrder>(AllOrders());
+        }
     }
 }

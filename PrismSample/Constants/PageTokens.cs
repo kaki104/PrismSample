@@ -7,5 +7,6 @@
         public const string MasterDetailPage = "MasterDetail";
         public const string WebViewPage = "WebView";
         public const string SamplePage = "Sample";
+        public const string MoviePage = "Movie";
     }
 }

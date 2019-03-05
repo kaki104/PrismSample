@@ -11,5 +11,7 @@ namespace PrismSample.Core.Services
     public interface ISampleDataService
     {
         Task<IEnumerable<SampleOrder>> GetSampleModelDataAsync();
+
+        ObservableCollection<SampleOrder> GetGridSampleData();
     }
 }

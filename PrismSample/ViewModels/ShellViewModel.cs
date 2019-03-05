@@ -1,16 +1,12 @@
 ﻿using System;
 using System.Linq;
 using System.Windows.Input;
-
+using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Navigation;
 using Prism.Commands;
 using Prism.Windows.Mvvm;
 using Prism.Windows.Navigation;
-
 using PrismSample.Helpers;
-
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Navigation;
-
 using WinUI = Microsoft.UI.Xaml.Controls;
 
 namespace PrismSample.ViewModels
@@ -18,23 +14,9 @@ namespace PrismSample.ViewModels
     public class ShellViewModel : ViewModelBase
     {
         private static INavigationService _navigationService;
-        private WinUI.NavigationView _navigationView;
         private bool _isBackEnabled;
+        private WinUI.NavigationView _navigationView;
         private WinUI.NavigationViewItem _selected;
-
-        public ICommand ItemInvokedCommand { get; }
-
-        public bool IsBackEnabled
-        {
-            get { return _isBackEnabled; }
-            set { SetProperty(ref _isBackEnabled, value); }
-        }
-
-        public WinUI.NavigationViewItem Selected
-        {
-            get { return _selected; }
-            set { SetProperty(ref _selected, value); }
-        }
 
         public ShellViewModel(INavigationService navigationServiceInstance)
         {
@@ -42,13 +24,24 @@ namespace PrismSample.ViewModels
             ItemInvokedCommand = new DelegateCommand<WinUI.NavigationViewItemInvokedEventArgs>(OnItemInvoked);
         }
 
+        public ICommand ItemInvokedCommand { get; }
+
+        public bool IsBackEnabled
+        {
+            get => _isBackEnabled;
+            set => SetProperty(ref _isBackEnabled, value);
+        }
+
+        public WinUI.NavigationViewItem Selected
+        {
+            get => _selected;
+            set => SetProperty(ref _selected, value);
+        }
+
         public void Initialize(Frame frame, WinUI.NavigationView navigationView)
         {
             _navigationView = navigationView;
-            frame.NavigationFailed += (sender, e) =>
-            {
-                throw e.Exception;
-            };
+            frame.NavigationFailed += (sender, e) => { throw e.Exception; };
             frame.Navigated += Frame_Navigated;
             _navigationView.BackRequested += OnBackRequested;
         }
@@ -56,8 +49,8 @@ namespace PrismSample.ViewModels
         private void OnItemInvoked(WinUI.NavigationViewItemInvokedEventArgs args)
         {
             var item = _navigationView.MenuItems
-                            .OfType<WinUI.NavigationViewItem>()
-                            .First(menuItem => (string)menuItem.Content == (string)args.InvokedItem);
+                .OfType<WinUI.NavigationViewItem>()
+                .First(menuItem => (string) menuItem.Content == (string) args.InvokedItem);
             var pageKey = item.GetValue(NavHelper.NavigateToProperty) as string;
             _navigationService.Navigate(pageKey, null);
         }
@@ -66,8 +59,8 @@ namespace PrismSample.ViewModels
         {
             IsBackEnabled = _navigationService.CanGoBack();
             Selected = _navigationView.MenuItems
-                            .OfType<WinUI.NavigationViewItem>()
-                            .FirstOrDefault(menuItem => IsMenuItemForPageType(menuItem, e.SourcePageType));
+                .OfType<WinUI.NavigationViewItem>()
+                .FirstOrDefault(menuItem => IsMenuItemForPageType(menuItem, e.SourcePageType));
         }
 
         private void OnBackRequested(WinUI.NavigationView sender, WinUI.NavigationViewBackRequestedEventArgs args)
