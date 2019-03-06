@@ -16,24 +16,21 @@
         <Grid>
             <controls:DataGrid
                 AutoGenerateColumns="False"
-                GridLinesVisibility="Horizontal">
+                GridLinesVisibility="Horizontal"
+                ItemsSource="{Binding Searchs}">
                 <controls:DataGrid.Columns>
                     <!--TODO WTS:
                     Remove this column definitions and define columns for your data.
                     Consider adding header properties to Resources.resw-->
-                    <controls:DataGridTextColumn Header="OrderId" Binding="{Binding OrderId}" />
-                    <controls:DataGridTextColumn Header="OrderDate" Binding="{Binding OrderDate}"  />
-                    <controls:DataGridTextColumn Header="Company" Binding="{Binding Company}" />
-                    <controls:DataGridTextColumn Header="ShipTo" Binding="{Binding ShipTo}" />
-                    <controls:DataGridTextColumn Header="OrderTotal" Binding="{Binding OrderTotal}" />
-                    <controls:DataGridTextColumn Header="Status" Binding="{Binding Status}"  />
-                    <controls:DataGridTemplateColumn Header="Symbol">
+                    <controls:DataGridTextColumn Header="Title" Binding="{Binding Title}" />
+                    <controls:DataGridTextColumn Header="Year" Binding="{Binding Year}"  />
+                    <controls:DataGridTextColumn Header="ImdbId" Binding="{Binding ImdbId}" />
+                    <controls:DataGridTextColumn Header="Type" Binding="{Binding Type}" />
+                    <!--<controls:DataGridTextColumn Header="Poster" Binding="{Binding Poster}" />-->
+                    <controls:DataGridTemplateColumn Header="Poster">
                         <controls:DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate x:DataType="model:SampleOrder">
-                                <FontIcon
-                                HorizontalAlignment="Left"
-                                Margin="{StaticResource SmallLeftRightMargin}"
-                                FontFamily="{ThemeResource SymbolThemeFontFamily}" />
+                            <DataTemplate>
+                                <Image Source="{Binding Poster}" Height="30"/>
                             </DataTemplate>
                         </controls:DataGridTemplateColumn.CellTemplate>
                     </controls:DataGridTemplateColumn>
