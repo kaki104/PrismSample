@@ -128,6 +128,7 @@
     <Compile Include="Services\WebViewService.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\MasterDetailViewModel.cs" />
+    <Compile Include="ViewModels\MovieDetailViewModel.cs" />
     <Compile Include="ViewModels\MovieViewModel.cs" />
     <Compile Include="ViewModels\SampleViewModel.cs" />
     <Compile Include="ViewModels\ShellViewModel.cs" />
@@ -140,6 +141,9 @@
     </Compile>
     <Compile Include="Views\MasterDetailPage.xaml.cs">
       <DependentUpon>MasterDetailPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MovieDetailPage.xaml.cs">
+      <DependentUpon>MovieDetailPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\MoviePage.xaml.cs">
       <DependentUpon>MoviePage.xaml</DependentUpon>
@@ -184,6 +188,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\MasterDetailPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\MovieDetailPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

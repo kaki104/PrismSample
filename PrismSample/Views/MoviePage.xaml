@@ -9,15 +9,28 @@
     prismMvvm:ViewModelLocator.AutoWireViewModel="True" 
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:model="using:PrismSample.Core.Models"
+    xmlns:core="using:Microsoft.Xaml.Interactions.Core"
+    xmlns:i="using:Microsoft.Xaml.Interactivity"
     mc:Ignorable="d">
     <Grid
         x:Name="ContentArea"
         Margin="{StaticResource SmallLeftRightMargin}">
         <Grid>
-            <controls:DataGrid
+            <controls:DataGrid x:Name="DataGrid"
                 AutoGenerateColumns="False"
                 GridLinesVisibility="Horizontal"
-                ItemsSource="{Binding Searchs}">
+                ItemsSource="{Binding Searchs}"
+                SelectedItem="{Binding SelectedMovie, Mode=TwoWay}"
+                SelectionMode="Extended">
+                <i:Interaction.Behaviors>
+                    <core:EventTriggerBehavior EventName="BeginningEdit">
+                        <core:InvokeCommandAction Command="{Binding  BeginningEditCommand}"/>
+                    </core:EventTriggerBehavior>
+                    <core:EventTriggerBehavior EventName="SelectionChanged">
+                        <core:InvokeCommandAction Command="{Binding  SelectionChangedCommand}"
+                                                  CommandParameter="{Binding ElementName=DataGrid, Path=SelectedItems}"/>
+                    </core:EventTriggerBehavior>
+                </i:Interaction.Behaviors>
                 <controls:DataGrid.Columns>
                     <!--TODO WTS:
                     Remove this column definitions and define columns for your data.

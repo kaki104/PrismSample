@@ -1,8 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
+using System.Windows.Input;
+using Windows.ApplicationModel;
+using Prism.Commands;
 using Prism.Windows.Mvvm;
 using Prism.Windows.Navigation;
 using PrismSample.Core.Helpers;
@@ -15,10 +20,61 @@ namespace PrismSample.ViewModels
     {
         private SearchRoot _searchResult;
         private IList<Search> _searchs;
+        private Search _selectedMovie;
+        private readonly INavigationService _navigationService;
 
-        public MovieViewModel()
+        public Search SelectedMovie
         {
+            get => _selectedMovie;
+            set => SetProperty(ref _selectedMovie ,value);
+        }
 
+        public ICommand BeginningEditCommand { get; set; }
+
+        public ICommand SelectionChangedCommand { get; set; }
+
+        public MovieViewModel(INavigationService navigationService)
+        {
+            _navigationService = navigationService;
+            Init();
+        }
+
+        private void Init()
+        {
+            if (DesignMode.DesignMode2Enabled) return;
+
+            BeginningEditCommand = new DelegateCommand(OnBeginningEditCommand);
+
+            SelectionChangedCommand = new DelegateCommand<object>(OnSelectionChangedCommand);
+
+            PropertyChanged += MovieViewModel_PropertyChanged;
+
+        }
+
+        private void OnSelectionChangedCommand(object obj)
+        {
+            var list = obj as IList;
+            if (list == null) return;
+            Debug.WriteLine($"SelectionChanged {list.Count}");
+        }
+
+        private void OnBeginningEditCommand()
+        {
+            
+        }
+
+        private void MovieViewModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            switch (e.PropertyName)
+            {
+                case nameof(SelectedMovie):
+                    Debug.WriteLine($"SelectedMovie Changed!! {SelectedMovie.Title}");
+
+                    if (SelectedMovie == null) return;
+
+                    _navigationService.Navigate(PageTokens.MovieDetailPage, SelectedMovie.ImdbId);
+                    break;
+            }
         }
 
         public override async void OnNavigatedTo(NavigatedToEventArgs e, Dictionary<string, object> viewModelState)
