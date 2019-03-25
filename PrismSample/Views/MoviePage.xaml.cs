@@ -1,8 +1,4 @@
-﻿using System;
-
-using PrismSample.ViewModels;
-
-using Windows.UI.Xaml.Controls;
+﻿using Windows.UI.Xaml.Controls;
 
 namespace PrismSample.Views
 {

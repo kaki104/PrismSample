@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
@@ -7,6 +8,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Windows.ApplicationModel;
+using Windows.UI.Popups;
 using Prism.Commands;
 using Prism.Windows.Mvvm;
 using Prism.Windows.Navigation;
@@ -22,6 +24,7 @@ namespace PrismSample.ViewModels
         private IList<Search> _searchs;
         private Search _selectedMovie;
         private readonly INavigationService _navigationService;
+        private string _inputMovieTitle;
 
         public Search SelectedMovie
         {
@@ -32,6 +35,10 @@ namespace PrismSample.ViewModels
         public ICommand BeginningEditCommand { get; set; }
 
         public ICommand SelectionChangedCommand { get; set; }
+
+        public ICommand QuerySubmittedCommand { get; set; }
+
+        public ICommand HelpCommand { get; set; }
 
         public MovieViewModel(INavigationService navigationService)
         {
@@ -47,8 +54,32 @@ namespace PrismSample.ViewModels
 
             SelectionChangedCommand = new DelegateCommand<object>(OnSelectionChangedCommand);
 
+            QuerySubmittedCommand = new DelegateCommand(OnQuerySubmittedCommand);
+
+            HelpCommand = new DelegateCommand(OnHelpCommand);
+
             PropertyChanged += MovieViewModel_PropertyChanged;
 
+        }
+
+        private async void OnHelpCommand()
+        {
+            var message = new MessageDialog("Help me!!");
+            await message.ShowAsync();
+        }
+
+        private async void OnQuerySubmittedCommand()
+        {
+            await GetMoviesAsync(InputMovieTitle);
+        }
+
+        /// <summary>
+        /// 입력한 영화 제목
+        /// </summary>
+        public string InputMovieTitle
+        {
+            get => _inputMovieTitle;
+            set => SetProperty(ref _inputMovieTitle ,value);
         }
 
         private void OnSelectionChangedCommand(object obj)
@@ -77,22 +108,22 @@ namespace PrismSample.ViewModels
             }
         }
 
-        public override async void OnNavigatedTo(NavigatedToEventArgs e, Dictionary<string, object> viewModelState)
+        public override void OnNavigatedTo(NavigatedToEventArgs e, Dictionary<string, object> viewModelState)
         {
-            await GetMoviesAsync();
+            //await GetMoviesAsync();
         }
 
-        private async Task GetMoviesAsync()
+        private async Task GetMoviesAsync(string movieTitle)
         {
             using (var client = new HttpClient())
             {
-                var result = await client.GetStringAsync("http://www.omdbapi.com/?s=batman&apikey=32941a88");
+                var result = await client.GetStringAsync($"http://www.omdbapi.com/?s={movieTitle}&apikey=32941a88");
                 if (string.IsNullOrEmpty(result)) return;
 
                 var searchRoot = await Json.ToObjectAsync<SearchRoot>(result);
                 if (searchRoot == null) return;
                 _searchResult = searchRoot;
-                Searchs = _searchResult.Search.ToList();
+                Searchs = _searchResult.Search?.ToList();
             }
         }
         /// <summary>

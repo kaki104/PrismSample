@@ -15,7 +15,30 @@
     <Grid
         x:Name="ContentArea"
         Margin="{StaticResource SmallLeftRightMargin}">
-        <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <CommandBar HorizontalAlignment="Right"
+                    DefaultLabelPosition="Collapsed">
+            <AppBarElementContainer VerticalContentAlignment="Center"
+                                    Margin="4,0,0,0">
+                <AutoSuggestBox QueryIcon="Find"
+                                MinWidth="200"
+                                Text="{Binding InputMovieTitle, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                    <i:Interaction.Behaviors>
+                        <core:EventTriggerBehavior EventName="QuerySubmitted">
+                            <core:InvokeCommandAction Command="{Binding QuerySubmittedCommand}"/>
+                        </core:EventTriggerBehavior>
+                    </i:Interaction.Behaviors>
+                </AutoSuggestBox>
+            </AppBarElementContainer>
+            <AppBarButton Label="Help" Icon="Help" Margin="4,0,0,0"
+                          Command="{Binding HelpCommand}"/>
+        </CommandBar>
+
+        <Grid Grid.Row="1">
             <controls:DataGrid x:Name="DataGrid"
                 AutoGenerateColumns="False"
                 GridLinesVisibility="Horizontal"
