@@ -8,8 +8,14 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Windows.ApplicationModel;
+using Windows.UI;
 using Windows.UI.Popups;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Controls.Primitives;
+using Windows.UI.Xaml.Media;
 using Prism.Commands;
+using Prism.Unity.Windows;
 using Prism.Windows.Mvvm;
 using Prism.Windows.Navigation;
 using PrismSample.Core.Helpers;
@@ -62,10 +68,25 @@ namespace PrismSample.ViewModels
 
         }
 
-        private async void OnHelpCommand()
+        private void OnHelpCommand()
         {
-            var message = new MessageDialog("Help me!!");
-            await message.ShowAsync();
+            var popup = PrismUnityApplication.Current.Container.TryResolve<Popup>();
+            var stackPanel = PrismUnityApplication.Current.Container.TryResolve<StackPanel>();
+            stackPanel.Background = new SolidColorBrush(Colors.DarkGray);
+            stackPanel.Width = 1024;
+            stackPanel.Height = 768;
+            stackPanel.HorizontalAlignment = HorizontalAlignment.Stretch;
+            stackPanel.VerticalAlignment = VerticalAlignment.Stretch;
+
+            var textBlock = PrismUnityApplication.Current.Container.TryResolve<TextBlock>();
+            textBlock.Text = "Popup!!!";
+            var button = PrismUnityApplication.Current.Container.TryResolve<Button>();
+            button.Content = "Close";
+            button.Click += (s, e) => { popup.IsOpen = false; };
+            stackPanel.Children.Add(textBlock);
+            stackPanel.Children.Add(button);
+            popup.Child = stackPanel;
+            popup.IsOpen = true;
         }
 
         private async void OnQuerySubmittedCommand()
