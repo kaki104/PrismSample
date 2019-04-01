@@ -9,13 +9,14 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PrismSample.Core", "PrismSa
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "History", "History", "{46685CB8-F789-40E8-9D0B-680D716A82E4}"
 	ProjectSection(SolutionItems) = preProject
-		PrismSample_part1.zip = PrismSample_part1.zip
-		PrismSample_part2.zip = PrismSample_part2.zip
-		PrismSample_part3.zip = PrismSample_part3.zip
-		PrismSample_part4.zip = PrismSample_part4.zip
-		PrismSample_part5.zip = PrismSample_part5.zip
-		PrismSample_part6.zip = PrismSample_part6.zip
-		PrismSample_part7.zip = PrismSample_part7.zip
+		History\PrismSample_part1.zip = History\PrismSample_part1.zip
+		History\PrismSample_part2.zip = History\PrismSample_part2.zip
+		History\PrismSample_part3.zip = History\PrismSample_part3.zip
+		History\PrismSample_part4.zip = History\PrismSample_part4.zip
+		History\PrismSample_part5.zip = History\PrismSample_part5.zip
+		History\PrismSample_part6.zip = History\PrismSample_part6.zip
+		History\PrismSample_part7.zip = History\PrismSample_part7.zip
+		History\PrismSample_part8.zip = History\PrismSample_part8.zip
 	EndProjectSection
 EndProject
 Global
